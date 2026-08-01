@@ -1,14 +1,16 @@
 @import "tailwindcss";
 
 /* ============================================
-   DESIGN TOKENS
+   DESIGN TOKENS — DARK & LIGHT THEMES
    ============================================ */
-:root {
+
+/* Default / Dark Theme */
+:root, [data-theme="dark"] {
   /* Colors */
   --color-bg-primary: #0e0d0b;
   --color-bg-secondary: #141210;
   --color-bg-card: #1a1714;
-  --color-bg-overlay: rgba(14, 13, 11, 0.85);
+  --color-bg-overlay: rgba(14, 13, 11, 0.92);
 
   --color-text-primary: #f0ebe3;
   --color-text-secondary: #b8ad9e;
@@ -21,6 +23,10 @@
 
   --color-border: rgba(240, 235, 227, 0.08);
   --color-border-accent: rgba(200, 120, 58, 0.3);
+  --color-subtle-bg: rgba(240, 235, 227, 0.05);
+
+  --color-button-secondary-hover: rgba(200, 120, 58, 0.15);
+  --color-card-shadow: rgba(0, 0, 0, 0.4);
 
   /* Typography */
   --font-serif: var(--font-playfair), Georgia, serif;
@@ -29,6 +35,30 @@
   /* Spacing */
   --section-px: clamp(1.5rem, 5vw, 6rem);
   --section-py: clamp(4rem, 8vw, 8rem);
+}
+
+/* Light Theme — Warm Editorial Cream & Terracotta */
+[data-theme="light"] {
+  --color-bg-primary: #faf6f0;
+  --color-bg-secondary: #f0e9df;
+  --color-bg-card: #ffffff;
+  --color-bg-overlay: rgba(250, 246, 240, 0.92);
+
+  --color-text-primary: #1c1917;
+  --color-text-secondary: #575047;
+  --color-text-muted: #8c8275;
+
+  --color-accent: #b85d19;
+  --color-accent-light: #d97832;
+  --color-accent-dark: #87400d;
+  --color-accent-glow: rgba(184, 93, 25, 0.12);
+
+  --color-border: rgba(28, 25, 23, 0.1);
+  --color-border-accent: rgba(184, 93, 25, 0.35);
+  --color-subtle-bg: rgba(28, 25, 23, 0.04);
+
+  --color-button-secondary-hover: rgba(184, 93, 25, 0.1);
+  --color-card-shadow: rgba(28, 25, 23, 0.08);
 }
 
 /* ============================================
@@ -53,6 +83,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 /* ============================================
@@ -126,7 +157,7 @@ body {
   align-items: center;
   gap: 0.5rem;
   background: var(--color-accent);
-  color: #fff;
+  color: #ffffff;
   font-family: var(--font-sans);
   font-size: 0.875rem;
   font-weight: 600;
@@ -143,7 +174,7 @@ body {
 .btn-primary:hover {
   background: var(--color-accent-light);
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(200, 120, 58, 0.35);
+  box-shadow: 0 8px 24px var(--color-accent-glow);
 }
 
 .btn-secondary {
@@ -161,13 +192,13 @@ body {
   border: 1px solid var(--color-border);
   border-radius: 2px;
   cursor: pointer;
-  transition: border-color 0.3s ease, background 0.3s ease, transform 0.2s ease;
+  transition: border-color 0.3s ease, background 0.3s ease, transform 0.2s ease, color 0.3s ease;
   text-decoration: none;
 }
 
 .btn-secondary:hover {
   border-color: var(--color-accent);
-  background: var(--color-accent-glow);
+  background: var(--color-button-secondary-hover);
   transform: translateY(-2px);
 }
 
@@ -179,13 +210,13 @@ body {
   border: 1px solid var(--color-border);
   border-radius: 4px;
   overflow: hidden;
-  transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease, background-color 0.4s ease;
 }
 
 .card:hover {
   border-color: var(--color-border-accent);
   transform: translateY(-4px);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 12px 40px var(--color-card-shadow);
 }
 
 /* ============================================
@@ -197,6 +228,7 @@ body {
   height: 2px;
   background: var(--color-accent);
   margin-bottom: 1.25rem;
+  transition: background-color 0.4s ease;
 }
 
 /* ============================================
@@ -210,6 +242,7 @@ body {
   text-transform: uppercase;
   color: var(--color-accent);
   margin-bottom: 0.75rem;
+  transition: color 0.4s ease;
 }
 
 /* ============================================
@@ -279,7 +312,7 @@ body {
    SELECTION
    ============================================ */
 ::selection {
-  background: rgba(200, 120, 58, 0.3);
+  background: var(--color-accent-glow);
   color: var(--color-text-primary);
 }
 
@@ -300,7 +333,7 @@ body {
   gap: 1.25rem;
   padding: 1.5rem 0;
   border-bottom: 1px solid var(--color-border);
-  transition: padding-left 0.3s ease;
+  transition: padding-left 0.3s ease, border-color 0.4s ease;
   cursor: pointer;
 }
 
@@ -321,7 +354,7 @@ body {
    ============================================ */
 .input-field {
   width: 100%;
-  background: rgba(240, 235, 227, 0.05);
+  background: var(--color-subtle-bg);
   border: 1px solid var(--color-border);
   border-radius: 2px;
   color: var(--color-text-primary);
@@ -329,7 +362,7 @@ body {
   font-size: 0.9375rem;
   padding: 0.875rem 1.25rem;
   outline: none;
-  transition: border-color 0.3s ease, background 0.3s ease;
+  transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
 }
 
 .input-field::placeholder {
@@ -338,5 +371,29 @@ body {
 
 .input-field:focus {
   border-color: var(--color-accent);
-  background: rgba(200, 120, 58, 0.04);
+  background: var(--color-accent-glow);
+}
+
+/* ============================================
+   THEME TOGGLE BUTTON
+   ============================================ */
+.theme-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--color-subtle-bg);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.theme-toggle-btn:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  background: var(--color-accent-glow);
+  transform: rotate(15deg) scale(1.05);
 }

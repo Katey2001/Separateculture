@@ -27,7 +27,7 @@ export default function CommunitySection() {
           position: "absolute",
           inset: 0,
           background: `
-            radial-gradient(ellipse 80% 60% at 50% 50%, rgba(200, 120, 58, 0.06) 0%, transparent 70%),
+            radial-gradient(ellipse 80% 60% at 50% 50%, var(--color-accent-glow) 0%, transparent 70%),
             var(--color-bg-primary)
           `,
           pointerEvents: "none",
@@ -44,7 +44,7 @@ export default function CommunitySection() {
           transform: "translateX(-50%)",
           fontSize: "clamp(6rem, 18vw, 18rem)",
           fontWeight: 900,
-          color: "rgba(240, 235, 227, 0.02)",
+          color: "var(--color-border)",
           whiteSpace: "nowrap",
           userSelect: "none",
           pointerEvents: "none",

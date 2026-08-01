@@ -32,14 +32,14 @@ export default function Hero() {
         background: `
           radial-gradient(
             ellipse 60% 50% at var(--mouse-x, 70%) var(--mouse-y, 40%),
-            rgba(200, 120, 58, 0.07) 0%,
+            var(--color-accent-glow) 0%,
             transparent 70%
           ),
           linear-gradient(
             160deg,
-            #0e0d0b 0%,
-            #151210 40%,
-            #0e0d0b 100%
+            var(--color-bg-primary) 0%,
+            var(--color-bg-secondary) 40%,
+            var(--color-bg-primary) 100%
           )
         `,
       }}

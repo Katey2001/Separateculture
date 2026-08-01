@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import { useTheme } from "./ThemeProvider";
 
 const navLinks = [
   { label: "Stories", href: "#stories" },
@@ -11,6 +12,7 @@ const navLinks = [
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -27,13 +29,9 @@ export default function Navbar() {
         right: 0,
         zIndex: 100,
         transition: "background 0.4s ease, backdrop-filter 0.4s ease, border-color 0.4s ease",
-        background: scrolled
-          ? "rgba(14, 13, 11, 0.92)"
-          : "transparent",
+        background: scrolled ? "var(--color-bg-overlay)" : "transparent",
         backdropFilter: scrolled ? "blur(12px)" : "none",
-        borderBottom: scrolled
-          ? "1px solid rgba(240,235,227,0.06)"
-          : "1px solid transparent",
+        borderBottom: scrolled ? "1px solid var(--color-border)" : "1px solid transparent",
       }}
     >
       <div
@@ -85,7 +83,7 @@ export default function Navbar() {
           style={{
             display: "flex",
             alignItems: "center",
-            gap: "2.5rem",
+            gap: "2rem",
           }}
           className="desktop-nav"
         >
@@ -114,47 +112,103 @@ export default function Navbar() {
               {link.label}
             </a>
           ))}
+
+          {/* Theme Toggle Button */}
+          <button
+            onClick={toggleTheme}
+            className="theme-toggle-btn"
+            title={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+            aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+          >
+            {theme === "dark" ? (
+              /* Sun Icon for Light Mode */
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                <line x1="1" y1="12" x2="3" y2="12"></line>
+                <line x1="21" y1="12" x2="23" y2="12"></line>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+              </svg>
+            ) : (
+              /* Moon Icon for Dark Mode */
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+              </svg>
+            )}
+          </button>
+
           <a href="#community" className="btn-primary" style={{ padding: "0.625rem 1.375rem", fontSize: "0.75rem" }}>
             Join Us
           </a>
         </nav>
 
-        {/* Mobile Hamburger */}
-        <button
-          onClick={() => setMenuOpen(!menuOpen)}
-          style={{
-            display: "none",
-            background: "none",
-            border: "none",
-            cursor: "pointer",
-            padding: "0.5rem",
-            color: "var(--color-text-primary)",
-          }}
-          aria-label="Toggle menu"
-          className="hamburger-btn"
-        >
-          <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-            {menuOpen ? (
-              <>
-                <line x1="2" y1="2" x2="20" y2="20" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-                <line x1="20" y1="2" x2="2" y2="20" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-              </>
+        {/* Mobile Right Controls */}
+        <div style={{ display: "none", alignItems: "center", gap: "0.75rem" }} className="mobile-controls">
+          {/* Mobile Theme Toggle Button */}
+          <button
+            onClick={toggleTheme}
+            className="theme-toggle-btn"
+            title={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+            aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+          >
+            {theme === "dark" ? (
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                <line x1="1" y1="12" x2="3" y2="12"></line>
+                <line x1="21" y1="12" x2="23" y2="12"></line>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+              </svg>
             ) : (
-              <>
-                <line x1="2" y1="6" x2="20" y2="6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-                <line x1="2" y1="11" x2="20" y2="11" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-                <line x1="2" y1="16" x2="20" y2="16" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-              </>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+              </svg>
             )}
-          </svg>
-        </button>
+          </button>
+
+          {/* Mobile Hamburger */}
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            style={{
+              background: "none",
+              border: "none",
+              cursor: "pointer",
+              padding: "0.5rem",
+              color: "var(--color-text-primary)",
+            }}
+            aria-label="Toggle menu"
+          >
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+              {menuOpen ? (
+                <>
+                  <line x1="2" y1="2" x2="20" y2="20" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+                  <line x1="20" y1="2" x2="2" y2="20" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+                </>
+              ) : (
+                <>
+                  <line x1="2" y1="6" x2="20" y2="6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+                  <line x1="2" y1="11" x2="20" y2="11" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+                  <line x1="2" y1="16" x2="20" y2="16" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+                </>
+              )}
+            </svg>
+          </button>
+        </div>
       </div>
 
       {/* Mobile Menu */}
       {menuOpen && (
         <div
           style={{
-            background: "rgba(14, 13, 11, 0.98)",
+            background: "var(--color-bg-overlay)",
             backdropFilter: "blur(16px)",
             borderTop: "1px solid var(--color-border)",
             padding: "1.5rem",
@@ -195,7 +249,7 @@ export default function Navbar() {
       <style>{`
         @media (max-width: 768px) {
           .desktop-nav { display: none !important; }
-          .hamburger-btn { display: block !important; }
+          .mobile-controls { display: flex !important; }
         }
       `}</style>
     </header>

@@ -1,0 +1,28 @@
+/* ============================================
+   RESPONSIVE LAYOUTS
+   ============================================ */
+
+/* Medium screens (≤1024px) */
+@media (max-width: 1024px) {
+  .section-container { padding: 0 clamp(1rem, 4vw, 2rem); }
+  .section-padding { padding-top: var(--section-py); padding-bottom: var(--section-py); }
+}
+
+/* Small screens (≤768px) */
+@media (max-width: 768px) {
+  .section-container { max-width: 100%; }
+  .grid, .footer-grid, .podcast-ep, .card { display: block; width: 100%; }
+  .footer-grid { grid-template-columns: 1fr !important; }
+  .hero-title { font-size: clamp(1.75rem, 6vw, 2.5rem); }
+  .hero-subtitle { font-size: 0.9rem; }
+  .desktop-nav { display: none !important; }
+  .mobile-controls { display: flex !important; }
+}
+
+/* Extra‑small screens (≤480px) */
+@media (max-width: 480px) {
+  .section-container { padding: 0 1rem; }
+  .btn-primary, .btn-secondary { padding: 0.75rem 1.5rem; font-size: 0.75rem; }
+  .nav-link { font-size: 0.7rem; }
+  .theme-toggle-btn { width: 32px; height: 32px; }
+}
